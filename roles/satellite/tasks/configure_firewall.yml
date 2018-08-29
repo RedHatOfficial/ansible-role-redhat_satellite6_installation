@@ -1,0 +1,11 @@
+---
+- name: SATELLITE | firewall | Enable service in firewall
+  firewalld:
+    service: "RH-Satellite-6"
+    permanent: yes
+    state: enabled
+
+- name: Bounce firewalld
+  service:
+     name=firewalld
+     state=restarted

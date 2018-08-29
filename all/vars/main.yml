@@ -1,0 +1,25 @@
+---
+
+# Satellite Variables
+sat_org: Default_first_org
+sat_location: Default_first_location
+upstream_cdn_path: https://cdn.redhat.com
+
+config_lvm: true          # must be set to true in order to configure drives
+create: true                     # set to true if creating a new logical volume (do not set extend or resize to true)
+##  Variables used - must update per system
+new_disk: '/dev/vdb'                # set to new disk being added to volume group
+create_vgname: 'content-vg'         # set to volume group name to create
+create_cache_lv: 'pulp-cache-lv'    # set to logical volume pulp-cache-lv to create
+create_pulp_lv: 'pulp-lv'           # set to logical volume pulp-lv to create
+create_mongodb_lv: 'mongodb-lv'     # set to logical volume mongodb-lv to create
+create_pgsql_lv: 'pgsql-lv'         # set to logical volume pqsql-lv to create
+cache_lvsize: '10G'                 # set to logical volume for cache-lv to 10G
+pulp_lvsize: '100%FREE'             # set to logical volume for pulp-lv to fill drive
+mongodb_lvsize: '50G'               # set to logical volume for mongodb-lv to 50G
+pgsql_lvsize: '10G'                 # set to logical volume for pgsql-lv to 10G
+mnt_pulp_cache: '/var/cache/pulp'   # set to the desired mount point mount pulp-cache
+mnt_pulp: '/var/lib/pulp'           # set to the desired mount point mount pulp
+mnt_mongodb: '/var/lib/mongodb'    # set to the desired mount point mount mongodb
+mnt_pgsql: '/var/lib/pgsql'         # set to the desired mount point mount pgsql
+filesystem: 'xfs'                   # set to filesystem type to format new logical volume with ( ext3, ext4, xfs, etc. )
