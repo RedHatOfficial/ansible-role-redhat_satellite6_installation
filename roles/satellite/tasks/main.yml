@@ -1,0 +1,10 @@
+---
+- import_tasks: configure_volumes.yml
+- import_tasks: install_satellite_packages.yml
+- import_tasks: configure_firewall.yml
+- import_tasks: install_satellite.yml
+- import_tasks: install_manifest.yml
+- import_tasks: configure_downloads.yml
+- import_tasks: install_openscap.yml
+- import_tasks: enable_repos.yml
+- import_tasks: sync_repos.yml

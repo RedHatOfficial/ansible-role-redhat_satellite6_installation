@@ -1,0 +1,3 @@
+---
+- name: SATELLITE | Set Default sync policy to "immediate"
+  command: /usr/bin/hammer --password "{{ vault_sat_admin_pwd }}" settings set --name default_download_policy --value immediate
