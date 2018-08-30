@@ -15,8 +15,8 @@ Requirements
 You will need ansible and all the required subscriptions for RHEL 7 and
 Satellite 6.
 
-* Disk Partitioning 
-** test
+* Disk Partitioning to support Satellite Directions
+.. Test
 * DNS
 * NTP
 
