@@ -1,0 +1,16 @@
+---
+- name: "Set remote_manifest fact"
+  set_fact:
+    "satellite_deployment_remote_manifest": "{{
+      'http://' in satellite_deployment_manifest_path or
+      'ftp://' in satellite_deployment_manifest_path }}"
+
+- name: 'Execute command to get netmask'
+  shell: "ipcalc --netmask {{ satellite_deployment_ip_address }}/{{
+    satellite_deployment_net_prefix }} | cut -d= -f2"
+  register: "satellite_deployment_netmas_result"
+
+- name: "Set netmask fact"
+  set_fact:
+    "satellite_deployment_netmask": "{{
+      satellite_deployment_netmas_result.stdout }}"

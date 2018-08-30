@@ -1,0 +1,92 @@
+---
+- name: "Include answers vars"
+  include_vars: "vars/answers.yml"
+  tags:
+  - "install_satellite"
+  - "update_satellite"
+
+# Copy the Katello answer file
+- name: "Install and configure | katello answer file copy"
+  template:
+    src: "answerfile.katello-installer.yaml.j2"
+    dest: "/etc/katello-installer/answers.katello-installer.yaml"
+  tags:
+  - "install_satellite"
+  - "update_satellite"
+  when: "{{ satellite_deployment_version == 6.1 }}"
+- name: "Install and configure | katello answer file copy"
+  template:
+    src: "answerfile.katello-installer.yaml.j2"
+    dest: "/etc/foreman-installer/scenarios.d/satellite-answers.yaml"
+  tags:
+  - "install_satellite"
+  - "update_satellite"
+  when: "{{ satellite_deployment_version == 6.2 }}"
+- name: "Install and configure | katello answer file copy"
+  template:
+    src: "answerfile.katello-installer.yaml.j2"
+    dest: "/etc/satellite-installer/scenarios.d/satellite-answers.yaml"
+  tags:
+  - "install_satellite"
+  - "update_satellite"
+  when: "{{ satellite_deployment_version == 6.3 }}"
+
+# Check if service exist for foreman
+- name: "Install and configure | check if service exist"
+  stat:
+    path: "/etc/init.d/foreman"
+  register: "foreman_service_file"
+  become: "yes"
+  tags:
+  - "install_satellite"
+  - "update_satellite"
+
+#Run the install of Satellite if foreman is installed
+- name: "Install and configure | satellite installation"
+  command: "/usr/sbin/katello-installer"
+  when: "{{ foreman_service_file.stat.exists == True and
+    satellite_deployment_version == 6.1 }}"
+  become: "yes"
+  tags:
+  - "install_satellite"
+  - "update_satellite"
+
+- name: "Update satellite-installer command"
+  set_fact:
+    satellite_deployment_installer_cmd: "{{ satellite_deployment_installer_cmd
+      }} --{{ item.key }}='{{ item.value }}'"
+  with_dict: "{{ satellite_deployment_answers }}"
+  when: "{{ satellite_deployment_version == 6.2 }}"
+  tags:
+  - "install_satellite"
+  - "update_satellite"
+
+#Run the install of Satellite 6.2
+- name: "Satellite 6.2 installation"
+  command: "{{ satellite_deployment_installer_cmd }}"
+  become: "yes"
+  when: "{{ foreman_service_file.stat.exists == True and
+    satellite_deployment_version == 6.2 }}"
+  tags:
+  - "install_satellite"
+  - "update_satellite"
+
+- name: "Update satellite-installer command"
+  set_fact:
+    satellite_deployment_installer_cmd: "{{ satellite_deployment_installer_cmd
+      }} --{{ item.key }}='{{ item.value }}'"
+  with_dict: "{{ satellite_deployment_answers }}"
+  when: "{{ satellite_deployment_version == 6.3 }}"
+  tags:
+  - "install_satellite"
+  - "update_satellite"
+
+#Run the install of Satellite 6.3
+- name: "Satellite 6.3 installation"
+  command: "{{ satellite_deployment_installer_cmd }}"
+  become: "yes"
+  when: "{{ foreman_service_file.stat.exists == True and
+    satellite_deployment_version == 6.3 }}"
+  tags:
+  - "install_satellite"
+  - "update_satellite"

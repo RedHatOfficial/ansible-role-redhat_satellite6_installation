@@ -1,0 +1,62 @@
+---
+#Create Hammer directory on /root
+- name: "Configure | create .hammer directory on user"
+  file:
+    path: "~/.hammer"
+    state: "directory"
+    mode: "0755"
+
+#Copy the hammer configuration from template to the .hammer directory
+- name: "Configure | set configuration for hammer from template"
+  template:
+    src: "hammer_config.yml.j2"
+    dest: "~/.hammer/cli_config.yml"
+
+#Copy the manifest
+- name: "Configure | copy manifest"
+  become: "yes"
+  copy:
+    src: "{{ satellite_deployment_manifest_path }}"
+    dest: "{{ satellite_deployment_manifest_dest_path }}"
+  when: "{{ not satellite_deployment_remote_manifest }}"
+
+- name: "Configure | copy manifest from remote"
+  become: "yes"
+  get_url:
+    url: "{{ satellite_deployment_manifest_path }}"
+    dest: "{{ satellite_deployment_manifest_dest_path }}"
+  when: "{{ satellite_deployment_remote_manifest }}"
+
+#Upload the manifest to the satellite
+- name: "Configure | upload the manifest"
+  become: "yes"
+  shell: "hammer subscription upload --file
+    {{ satellite_deployment_manifest_dest_path }} --organization
+    {{ satellite_deployment_organization }}"
+
+#Enabling repos on satellite
+- name: "Configure | enable repos"
+  become: "yes"
+  shell: "hammer repository-set '{{ item.state }}' --organization
+    '{{ satellite_deployment_organization }}'
+    --product '{{ item.product_name }}' --name '{{ item.name_repo }}'
+    {% if item.rel is defined %} --releasever '{{ item.rel }}' {% endif %}
+    --basearch '{{ item.architecture}}'"
+  with_items: "{{ satellite_deployment_repositories }}"
+  ignore_errors: "yes"
+  tags:
+    - "satellite_deployment_repositories"
+
+#Get the repos ids and sync the repos
+- name: "Configure | grab repositories uuid"
+  shell: "hammer repository list --organization
+    {{ satellite_deployment_organization }} | grep yum | awk '{print $1}'"
+  register: "repos"
+
+- name: "Configure | sync repos on satellite"
+  shell: "hammer repository synchronize --id '{{ item }}' --organization
+    {{ satellite_deployment_organization }}"
+  with_items: "{{ repos.stdout_lines }}"
+  register: "sync_repos_result"
+  retries: 3
+  until: "{{ sync_repos_result | success }}"

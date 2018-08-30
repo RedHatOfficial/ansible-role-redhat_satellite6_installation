@@ -1,0 +1,5 @@
+---
+# check defaults/main.yml which vars you have to pass.
+
+satellite_deployment_installer_cmd: "/usr/sbin/satellite-installer
+  --scenario satellite"
