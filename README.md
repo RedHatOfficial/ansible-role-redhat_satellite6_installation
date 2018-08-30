@@ -15,23 +15,16 @@ Requirements
 You will need ansible and all the required subscriptions for RHEL 7 and
 Satellite 6.
 
-* Disk Partitioning to support Satellite Directions
-.. Test
+* Disk Partitioning to support Satellite Directories. Refer to installation guide.
 * DNS
 * NTP
+* satellite_deployment_manifest_path variable defined 
+* Satellite Manifest file is hosted on the Ansible Bastion or available via HTTP or FTP somewhere in the environment.
 
 Role Variables
 --------------
 
-All variables are in files located in ./vars and are imported with specifics
-tasks.
-But to be open for others we decided specify only related variables there and
-all mandatory variables you have to specify in playbook vars or pass in extra
-vars parameter.
-
-You can check default vars located in ./defaults/main.yml, where we specify
-these variables you have to specify in your var file and overwrite them,
-otherwise this role won't work properly.
+All variables are in files located in defaults/main.yml
 
 
 Dependencies
