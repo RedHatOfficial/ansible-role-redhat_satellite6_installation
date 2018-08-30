@@ -54,9 +54,8 @@ After this we will download the manifest.
 After this copy the download file inside the /files directory on the role and
 name it "satellite_manifest.zip"
 
-** Then create the variable file in vars/your_name.yml in your playbook and
-set all mandatory variables for role. You can inspire in vars/example-vars.yml.
-And include this variable file in playbook as variable_files:
+** Then update the variable file in defaults/main.yml in your playbook and
+set all mandatory variables for role.:
 
 You can see example of playbook in playbook_example/config.yml
 
@@ -82,3 +81,5 @@ Petr Balogh - <petr.balogh@gmail.com>
 Joe Pisciotta - <josephpisciott@mac.com>
 
 Nick Poyant - <npoyant@redhat.com>
+
+Cameron Wyatt - <cwyatt@redhat.com>
