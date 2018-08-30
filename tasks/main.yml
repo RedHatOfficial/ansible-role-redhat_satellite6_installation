@@ -1,0 +1,11 @@
+---
+- include: set_facts.yml
+- include: registration.yml
+- include: network.yml
+  when: "{{ satellite_deployment_set_network }}"
+- include: firewall.yml
+- include: install_software.yml
+- include: install_satellite.yml
+- include: configure_satellite.yml
+- include: configure_capsule.yml
+  when: "{{ satellite_configure_capsule }}"

@@ -1,0 +1,81 @@
+---
+#Create an Smart Proxy
+- name: "Configure capsule | create an smart proxy on the organization"
+  become: "yes"
+  shell: "hammer organization add-smart-proxy --name
+    {{ satellite_deployment_organization }} --smart-proxy-id 1"
+
+#Add location to the Smart Proxy
+- name: "Configure capsule  | add location smart proxy"
+  command: "hammer location add-smart-proxy --name
+    {{ satellite_deployment_location }} --smart-proxy-id 1"
+
+#Create domain
+- name: "Configure capsule | add domain"
+  become: "yes"
+  shell: "hammer domain create --name='{{ satellite_deployment_dns_zone }}'"
+  ignore_errors: "yes"
+
+- name: "Configure capsule |  add domain to organization"
+  become: "yes"
+  shell: "hammer organization add-domain --name
+    {{ satellite_deployment_organization }} --domain
+    {{ satellite_deployment_dns_zone }}"
+
+#Create the DHCP Subnet
+- name: "Configure capsule | create subnet"
+  become: "yes"
+  shell: "hammer subnet create --dhcp-id 1 --dns-id 1 --dns-primary
+    {{ satellite_deployment_ip_address }} --domain-ids 1
+    --from {{ satellite_deployment_dhcp_start }}
+    --to {{ satellite_deployment_dhcp_end }}
+    --gateway {{ satellite_deployment_gw_address }}
+    --mask {{ satellite_deployment_netmask }}
+    --name {{ satellite_deployment_subnet_name }}
+    --network {{ satellite_deployment_network_address }} --tftp-id 1"
+
+#Add location to Subnet
+- name: "Configure capsule | location add subnet"
+  become: "yes"
+  shell: "hammer location add-subnet
+    --name {{ satellite_deployment_location }}
+    --subnet {{ satellite_deployment_subnet_name }}"
+
+#Associate the domain to capsule
+- name: "Configure capsule | associate domain capsule"
+  become: "yes"
+  shell: "hammer domain update --dns-id 1 --id 1"
+
+#Add Location to Domain
+- name: "Configure capsule | add location domain"
+  become: "yes"
+  shell: "hammer location add-domain
+    --name {{ satellite_deployment_location }}
+    --domain {{ satellite_deployment_dns_zone }}"
+
+#Adding the Subnet the Organization
+- name: "Configure capsule | add subnet the organization"
+  become: "yes"
+  shell: "hammer organization add-subnet
+    --name {{ satellite_deployment_organization }}
+    --subnet {{ satellite_deployment_subnet_name }}"
+
+#Add puppet environment
+- name: "Configure capsule | add puppet environment"
+  become: "yes"
+  shell: "hammer organization add-environment
+    --name {{ satellite_deployment_organization }}
+    --environment {{ satellite_deployment_puppet_env }}"
+
+#Add location to the environment
+- name: "Configure capsule | location add environment"
+  become: "yes"
+  shell: "hammer location add-environment
+    --name {{ satellite_deployment_location }}
+    --environment {{ satellite_deployment_puppet_env }}"
+
+#Add location to the organization
+- name: "Configure capsule | adding location to organization"
+  shell: "hammer location add-organization
+    --name {{ satellite_deployment_location  }}
+    --organization {{ satellite_deployment_organization }}"

@@ -1,0 +1,9 @@
+---
+- hosts: satellite-server
+  roles:
+    - role: 'ntp'
+      ntp_server:
+        - '0.pool.ntp.org'
+    - role: "satellite-deployment"
+  vars_files:
+    - "{{ satellite_deployment_vars }}"
