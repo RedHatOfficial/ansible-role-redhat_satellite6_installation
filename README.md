@@ -13,8 +13,12 @@ Requirements
 ------------
 
 You will need ansible and all the required subscriptions for RHEL 7 and
-Satellite 6. Also please use some role for set NTP on your server. We recommend
-you use ansible-galaxy and install role for NTP **bennojoy.ntp** like we do.
+Satellite 6.
+
+* Disk Partitioning 
+** test
+* DNS
+* NTP
 
 Role Variables
 --------------
