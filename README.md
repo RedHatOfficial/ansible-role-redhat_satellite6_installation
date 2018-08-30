@@ -13,21 +13,18 @@ Requirements
 ------------
 
 You will need ansible and all the required subscriptions for RHEL 7 and
-Satellite 6. Also please use some role for set NTP on your server. We recommend
-you use ansible-galaxy and install role for NTP **bennojoy.ntp** like we do.
+Satellite 6.
+
+* Disk Partitioning to support Satellite Directories. Refer to installation guide.
+* DNS
+* NTP
+* satellite_deployment_manifest_path variable defined 
+* Satellite Manifest file is hosted on the Ansible Bastion or available via HTTP or FTP somewhere in the environment.
 
 Role Variables
 --------------
 
-All variables are in files located in ./vars and are imported with specifics
-tasks.
-But to be open for others we decided specify only related variables there and
-all mandatory variables you have to specify in playbook vars or pass in extra
-vars parameter.
-
-You can check default vars located in ./defaults/main.yml, where we specify
-these variables you have to specify in your var file and overwrite them,
-otherwise this role won't work properly.
+All variables are in files located in defaults/main.yml
 
 
 Dependencies
@@ -57,9 +54,8 @@ After this we will download the manifest.
 After this copy the download file inside the /files directory on the role and
 name it "satellite_manifest.zip"
 
-** Then create the variable file in vars/your_name.yml in your playbook and
-set all mandatory variables for role. You can inspire in vars/example-vars.yml.
-And include this variable file in playbook as variable_files:
+** Then update the variable file in defaults/main.yml in your playbook and
+set all mandatory variables for role.:
 
 You can see example of playbook in playbook_example/config.yml
 
@@ -85,3 +81,5 @@ Petr Balogh - <petr.balogh@gmail.com>
 Joe Pisciotta - <josephpisciott@mac.com>
 
 Nick Poyant - <npoyant@redhat.com>
+
+Cameron Wyatt - <cwyatt@redhat.com>
