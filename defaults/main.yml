@@ -3,26 +3,17 @@
 # Go over variables bellow and pass them in extra vars, playbook vars,
 # vars_files, inventory file or whatever which overwrite these values!
 
+#TODO: to be pulled out and documented, not defaults
+
+satellite_deployment_ip_address: "127.0.0.1"
 
 # main:
 # version should be double! Not string!
 satellite_deployment_version: 6.2
-satellite_deployment_hostname_short: "sat"
-satellite_deployment_hostname_full: "define.your.fqdn"
-satellite_deployment_ip_address: "127.0.0.1"
-
-# install:
-satellite_deployment_plugin_packages: []
-
-# network:
-satellite_deployment_set_network: false
-satellite_deployment_net_prefix: "24"
-satellite_deployment_subnet_name: "sat_subnet1"
-satellite_deployment_plugin_ports: []
-
-# registration:
-satellite_deployment_rhn_user: "your_rhn_user"
-satellite_deployment_rhn_password: "your_rhn_pass"
+# Determine where the Satellite manifest is a local file or hosted somewhere
+satellite_deployment_remote_manifest: "{{
+      'http://' in satellite_deployment_manifest_path or
+      'ftp://' in satellite_deployment_manifest_path }}"
 
 # answers:
 # specify answers key: value without -- prefix. Keys you can get when you
@@ -31,6 +22,7 @@ satellite_deployment_answers:
   'answer': 'value'
 
 # configure_satellite:
+# TODO: got to here
 satellite_deployment_manifest_path: "satellite_manifest.zip"
 satellite_deployment_manifest_dest_path: "/root/satellite_manifest.zip"
 satellite_deployment_repositories:
@@ -44,3 +36,42 @@ satellite_deployment_repositories:
 
 # configure_capsules:
 satellite_deployment_puppet_env: "production"
+
+satellite_deployment_installer_cmd: "/usr/sbin/satellite-installer
+  --scenario satellite"
+
+satellite_deployment_fw_ports:
+    - 22/tcp
+    - 80/tcp
+    - 443/tcp
+    - 5646/tcp
+    - 5647/tcp
+    - 5671/tcp
+    - 5674/tcp
+    - 8140/tcp
+    - 9090/tcp
+    - 53/udp
+    - 53/tcp
+    - 67/udp
+    - 68/udp
+    - 69/udp
+
+
+satellite_deployment_packages:
+  "6.1":
+    - "katello"
+  "6.2":
+    - "satellite"
+  "6.3":
+    - "satellite"
+
+satellite_deployment_extra_packages:
+  - "wget"
+  - "git"
+  - "net-tools"
+  - "bash-completion"
+  - "screen"
+  - "vim-*"
+
+satellite_configure_capsule: true
+

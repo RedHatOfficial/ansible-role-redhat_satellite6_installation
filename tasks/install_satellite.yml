@@ -6,6 +6,8 @@
   - "update_satellite"
 
 # Copy the Katello answer file
+# TODO: this is not idempotent. Rerunning the playbook with the same default answer file
+# will cause a reinstall of Satellite
 - name: "Install and configure | katello answer file copy"
   template:
     src: "answerfile.katello-installer.yaml.j2"

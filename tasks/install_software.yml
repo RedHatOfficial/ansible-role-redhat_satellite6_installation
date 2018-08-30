@@ -13,8 +13,7 @@
     state: "latest"
   with_items: "{{
     satellite_deployment_packages[satellite_deployment_version | string] +
-    satellite_deployment_extra_packages + satellite_deployment_plugin_packages
-    }}"
+    satellite_deployment_extra_packages }}"
   tags:
     - "install"
     - "update_satellite"

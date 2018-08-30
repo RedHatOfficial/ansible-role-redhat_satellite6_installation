@@ -20,11 +20,18 @@
   tags:
     - "firewall"
 
-- name: "Update /etc/hosts wiht satellite hostname"
+- name: "Ensure required ansible facts are set"
+  assert:
+    that:
+      - ansible_fqdn is defined and ansible_fqdn.find("localhost") == -1
+      - ansible_hostname is defined and ansible_hostname.find("localhost") == -1
+    msg: "Hostname must be set"
+
+- name: "Update /etc/hosts with satellite hostname"
   lineinfile:
-    line: "{{ satellite_deployment_ip_address }}
-      {{ satellite_deployment_hostname_full }}
-      {{ satellite_deployment_hostname_short }}"
+    line: "{{ ansible_default_ipv4.address }}
+      {{ ansible_fqdn }}
+      {{ ansible_hostname }}"
     dest: "/etc/hosts"
   tags:
     - "firewall"
@@ -46,8 +53,7 @@
     immediate: "yes"
     port: "{{ item }}"
     state: "enabled"
-  with_items: "{{ satellite_deployment_fw_ports +
-    satellite_deployment_plugin_ports }}"
+  with_items: "{{ satellite_deployment_fw_ports }}"
   ignore_errors: "yes"
   tags:
     - "firewall"
