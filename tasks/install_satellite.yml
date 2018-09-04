@@ -1,10 +1,4 @@
 ---
-- name: "Include answers vars"
-  include_vars: "vars/answers.yml"
-  tags:
-  - "install_satellite"
-  - "update_satellite"
-
 # Copy the Katello answer file
 - name: "Install and configure | katello answer file copy"
   template:
@@ -14,6 +8,7 @@
   - "install_satellite"
   - "update_satellite"
   when: "{{ satellite_deployment_version == 6.1 }}"
+
 - name: "Install and configure | katello answer file copy"
   template:
     src: "answerfile.katello-installer.yaml.j2"
@@ -22,6 +17,7 @@
   - "install_satellite"
   - "update_satellite"
   when: "{{ satellite_deployment_version == 6.2 }}"
+
 - name: "Install and configure | katello answer file copy"
   template:
     src: "answerfile.katello-installer.yaml.j2"
