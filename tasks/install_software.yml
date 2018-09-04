@@ -1,9 +1,4 @@
 ---
-- name: "Include install vars"
-  include_vars: "vars/install.yml"
-  tags:
-    - "install"
-    - "update_satellite"
 
 #Install the base software
 - name: "Install_software"
