@@ -53,6 +53,8 @@ satellite_deployment_packages:
     - "satellite"
   "6.3":
     - "satellite"
+  "6.4":
+    - "satellite"
 
 # Packages
 satellite_deployment_extra_packages:
