@@ -1,7 +1,7 @@
 ---
 - include: set_facts.yml
 - include: registration.yml
-  when: "{{ satellite_connected == true }}"
+  when: satellite_connected == true
 - include: firewall.yml
 - include: install_software.yml
 - include: install_satellite.yml

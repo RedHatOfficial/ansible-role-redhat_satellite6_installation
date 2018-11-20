@@ -27,13 +27,13 @@
     - "rhn"
   register: "satellite_deployment_pool_id_command"
   ignore_errors: "yes"
-  when: "{{ satellite_deployment_pool_id is undefined }}"
+  when: satellite_deployment_pool_id is undefined
 
 - name: "Set pool_id fact"
   set_fact:
     "satellite_deployment_pool_id": "{{
       satellite_deployment_pool_id_command.stdout }}"
-  when: "{{ satellite_deployment_pool_id is undefined }}"
+  when: satellite_deployment_pool_id is undefined
 
 #Attaching the system to the right Pool
 - name: "RHN | subscribing to the right pool"
@@ -43,7 +43,7 @@
     - "rhn"
     - "skip_ansible_lint" # ANSIBLE0012
   ignore_errors: "yes"
-  when: "{{ satellite_deployment_subscribed.stdout == '' }}"
+  when: satellite_deployment_subscribed.stdout == ''
 
 
 #Enabling the repos
