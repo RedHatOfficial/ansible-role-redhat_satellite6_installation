@@ -44,3 +44,57 @@ satellite_deployment_repositories:
 
 # configure_capsules:
 satellite_deployment_puppet_env: "production"
+
+satellite_deployment_packages:
+  "6.1":
+    - "katello"
+  "6.2":
+    - "satellite"
+  "6.3":
+    - "satellite"
+  "6.4":
+    - "satellite"
+    - "satellite-capsule"
+
+satellite_deployment_install_repos:
+  "6.3":
+    - "rhel-7-server-satellite-6.3-rpms"
+    - "rhel-7-server-rpms"
+    - "rhel-server-rhscl-7-rpms"
+  "6.4":
+    - "rhel-7-server-rpms"
+    - "rhel-server-rhscl-7-rpms"
+    - "rhel-7-server-satellite-6.4-rpms"
+    - "rhel-7-server-satellite-maintenance-6-rpms"
+    - "rhel-7-server-ansible-2.6-rpms"
+    - "rhel-7-server-rh-common-rpms"
+
+# Packages
+satellite_deployment_extra_packages:
+  - "wget"
+  - "git"
+  - "net-tools"
+  - "bash-completion"
+  - "screen"
+  - "vim-*"
+
+# Firewall Ports
+satellite_deployment_fw_ports:
+    - 22/tcp
+    - 80/tcp
+    - 443/tcp
+    - 5646/tcp
+    - 5647/tcp
+    - 5671/tcp
+    - 5674/tcp
+    - 8140/tcp
+    - 9090/tcp
+    - 53/udp
+    - 53/tcp
+    - 67/udp
+    - 68/udp
+    - 69/udp
+
+
+satellite_deployment_installer_cmd: "/usr/sbin/satellite-installer
+  --scenario satellite"
