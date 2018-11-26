@@ -7,8 +7,6 @@
   foreman:
     organizations_enabled: true
     locations_enabled: true
-    initial_organization: "{{ satellite_deployment_organization }}"
-    initial_location: "{{ satellite_deployment_location }}"
     custom_repo: true
     configure_epel_repo: false
     configure_scl_repo: false
@@ -23,6 +21,9 @@
     unattended: true
     admin_username: "{{ satellite_deployment_admin_username }}"
     admin_password: "{{ satellite_deployment_admin_password }}"
+    initial_organization: "{{ satellite_deployment_organization }}"
+    initial_location: "{{ satellite_deployment_location }}"
+    ipa_authentication: true
   capsule:
     register_in_foreman: true
     pulp_master: true

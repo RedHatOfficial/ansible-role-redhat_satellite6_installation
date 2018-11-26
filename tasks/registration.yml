@@ -48,9 +48,17 @@
 
 #Enabling the repos
 - name: "RHN | enabling the right repos"
-  command: "/usr/sbin/subscription-manager repos --disable '*' --enable
-    rhel-7-server-satellite-{{ satellite_deployment_version }}-rpms
-    --enable rhel-7-server-rpms --enable rhel-server-rhscl-7-rpms"
+  command: "/usr/sbin/subscription-manager repos --disable '*'
+  --enable {{ satellite_deployment_install_repos[satellite_deployment_version | string] | join(' --enable ') }}"
   tags:
     - "rhn"
     - "skip_ansible_lint" # ANSIBLE0012
+
+ # TODO - Turn this into a variable.
+# - name: "RHN | enabling the right repos"
+#   command: "/usr/sbin/subscription-manager repos --disable '*' --enable
+#     rhel-7-server-satellite-{{ satellite_deployment_version }}-rpms
+#     --enable rhel-7-server-rpms --enable rhel-server-rhscl-7-rpms"
+#   tags:
+#     - "rhn"
+#     - "skip_ansible_lint" # ANSIBLE0012
