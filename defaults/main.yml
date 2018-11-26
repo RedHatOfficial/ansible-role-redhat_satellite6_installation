@@ -55,6 +55,20 @@ satellite_deployment_packages:
     - "satellite"
   "6.4":
     - "satellite"
+    - "satellite-capsule"
+
+satellite_deployment_install_repos:
+  "6.3":
+    - "rhel-7-server-satellite-6.3-rpms"
+    - "rhel-7-server-rpms"
+    - "rhel-server-rhscl-7-rpms"
+  "6.4":
+    - "rhel-7-server-rpms"
+    - "rhel-server-rhscl-7-rpms"
+    - "rhel-7-server-satellite-6.4-rpms"
+    - "rhel-7-server-satellite-maintenance-6-rpms"
+    - "rhel-7-server-ansible-2.6-rpms"
+    - "rhel-7-server-rh-common-rpms"
 
 # Packages
 satellite_deployment_extra_packages:
