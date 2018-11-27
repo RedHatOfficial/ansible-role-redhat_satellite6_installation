@@ -6,6 +6,10 @@ satellite_deployment_packages:
     - "satellite"
   "6.3":
     - "satellite"
+  "6.4":
+    - "satellite"
+    - "satellite-capsule"
+
 
 satellite_deployment_extra_packages:
   - "wget"
