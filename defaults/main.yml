@@ -31,7 +31,7 @@ satellite_deployment_answers:
   'answer': 'value'
 
 
-satellite_deployment_ipa_authentication: false
+satellite_deployment_ipa_authentication: "false"
 
 # configure_satellite:
 satellite_deployment_remote_manifest: false
