@@ -61,7 +61,7 @@ You can see example of playbook in playbook_example/config.yml
 
 * Run the playbook, see README of example playbook
 
-[playbook readme](./playbook_example/README.rst)
+[playbook readme](./playbook_example/README.md)
 
 
 License
