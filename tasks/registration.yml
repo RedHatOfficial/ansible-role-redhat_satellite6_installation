@@ -22,7 +22,7 @@
 #Get the pool id for the pool that contains the Satellite product
 - name: "RHN | get RHN pool id"
   shell: "/usr/sbin/subscription-manager list --all --available
-    --matches='*Satellite*' | awk '/Pool ID/ {print $3}' | head -1"
+    --matches='Satellite*' | awk '/Pool ID/ {print $3}' | head -1"
   tags:
     - "rhn"
   register: "satellite_deployment_pool_id_command"
