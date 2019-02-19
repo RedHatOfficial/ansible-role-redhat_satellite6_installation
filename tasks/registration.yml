@@ -13,7 +13,7 @@
 
 - name: "Check if Satellite is subscribed"
   shell: "/usr/sbin/subscription-manager list --consumed
-    --matches='*Satellite*' | awk '/Pool ID/ {print $3}'"
+    --matches='Satellite*' | awk '/Pool ID/ {print $3}'"
   tags:
     - "rhn"
     - "skip_ansible_lint" # ANSIBLE0012
