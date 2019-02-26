@@ -8,11 +8,11 @@
 # version should be double! Not string!
 satellite_deployment_version: 6.4
 satellite_deployment_hostname_short: "sat-testing"
-satellite_deployment_hostname_full: "sat-testing.mgt.devsecops.gov"
+satellite_deployment_hostname_full: "sat-testing.example.com"
 satellite_deployment_admin_username: "admin"
 satellite_deployment_admin_password: "redhat"
-satellite_deployment_organization: "VMC"
-satellite_deployment_location: "MGT"
+satellite_deployment_organization: "ORG1"
+satellite_deployment_location: "LOC1"
 # registration:
 satellite_connected: "True"  ## True for connected / False for Disconnected
 satellite_deployment_rhn_user: "your_rhn_user"
@@ -120,7 +120,7 @@ satellite_deployment_plugin_ports: []
 satellite_deployment_dns: "false"
 satellite_deployment_dns_interface: "{{ satellite_deployment_net_interface }}"
 satellite_deployment_dns_forwarder: "[]"
-satellite_deployment_dns_zone: "mgt.devsecops.gov"
+satellite_deployment_dns_zone: "example.com"
 satellite_deployment_dns_reverse_zone: "0.168.192.in-addr.arpa"
 
 #DHCP
@@ -132,24 +132,6 @@ satellite_deployment_dhcp_end: "192.168.0.139"
 #TFTP
 satellite_deployment_tftp: "true"
 
-
-#"foreman-proxy-dns": "true"
-#"foreman-proxy-dns-interface": "{{ satellite_deployment_dns_interface }}"
-#"foreman-proxy-dns-zone": "{{ satellite_deployment_dns_zone }}"
-#"foreman-proxy-dns-forwarders": "{{ satellite_deployment_dns_forwarder }}"
-#"foreman-proxy-dns-reverse": "{{ satellite_deployment_dns_reverse_zone }}"
-
-#"foreman-proxy-dhcp": "true"
-#"foreman-proxy-dhcp-interface": "{{ satellite_deployment_dhcp_interface }}"
-#"foreman-proxy-dhcp-range": "{{ satellite_deployment_dhcp_start }}
-#{{ satellite_deployment_dhcp_end }}"
-#"foreman-proxy-dhcp-gateway": "{{ satellite_deployment_gw_address }}"
-#"foreman-proxy-dhcp-nameservers": "{{ satellite_deployment_ip_address }}"
-
-#"foreman-proxy-tftp": "true"
-#"foreman-proxy-tftp-servername": "{{ satellite_deployment_hostname_full }}"
-#"foreman-proxy-puppetca": "true"
-#"capsule-puppet": "true"
 
 satellite_deployment_plugin_packages:
   - "foreman-discovery-image"
