@@ -34,12 +34,9 @@ satellite_deployment_answers:
 satellite_deployment_ipa_authentication: "false"
 
 # configure_satellite:
-<<<<<<< HEAD
 satellite_deployment_manifest_path: "/home/ansible-root/NP/satellite_manifest.zip"
-=======
 satellite_deployment_remote_manifest: false
 satellite_deployment_manifest_path: "satellite_manifest.zip"
->>>>>>> f4b18ade8ef9e1075a8c5b60015840ca170310de
 satellite_deployment_manifest_dest_path: "/root/satellite_manifest.zip"
 satellite_deployment_repositories:
   - { product_name: 'Red Hat Enterprise Linux Server', name_repo: 'Red Hat Enterprise Linux 7 Server (Kickstart)', rel: '7.6', architecture: 'x86_64', state: enable}
@@ -54,7 +51,6 @@ satellite_deployment_repositories:
 # configure_capsules:
 satellite_deployment_puppet_env: "production"
 
-<<<<<<< HEAD
 
 satellite_deployment_packages:
   "6.1":
@@ -67,8 +63,6 @@ satellite_deployment_packages:
     - "satellite"
     - "satellite-capsule"
 
-=======
->>>>>>> f4b18ade8ef9e1075a8c5b60015840ca170310de
 satellite_deployment_install_repos:
   "6.3":
     - "rhel-7-server-satellite-6.3-rpms"
@@ -111,7 +105,6 @@ satellite_deployment_fw_ports:
 
 satellite_deployment_installer_cmd: "/usr/sbin/satellite-installer
   --scenario satellite"
-<<<<<<< HEAD
 
 
 # IPA Enabled / Disabled
@@ -147,5 +140,3 @@ satellite_deployment_tftp: "true"
 
 satellite_deployment_plugin_packages:
   - "foreman-discovery-image"
-=======
->>>>>>> f4b18ade8ef9e1075a8c5b60015840ca170310de
