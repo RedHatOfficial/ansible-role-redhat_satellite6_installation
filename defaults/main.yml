@@ -9,7 +9,10 @@
 satellite_deployment_version: 6.4
 satellite_deployment_hostname_short: "sat-testing"
 satellite_deployment_hostname_full: "sat-testing.mgt.devsecops.gov"
-
+satellite_deployment_admin_username: "admin"
+satellite_deployment_admin_password: "redhat"
+satellite_deployment_organization: "VMC"
+satellite_deployment_location: "MGT"
 # registration:
 satellite_connected: "True"  ## True for connected / False for Disconnected
 satellite_deployment_rhn_user: "your_rhn_user"
