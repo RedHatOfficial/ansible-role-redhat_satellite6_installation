@@ -23,7 +23,7 @@
     admin_password: "{{ satellite_deployment_admin_password }}"
     initial_organization: "{{ satellite_deployment_organization }}"
     initial_location: "{{ satellite_deployment_location }}"
-    ipa_authentication: true
+    ipa_authentication: "{{ satellite_ipa_integrated }}"
   capsule:
     register_in_foreman: true
     pulp_master: true

@@ -12,96 +12,86 @@ katello:
 foreman:
   organizations_enabled: true
   locations_enabled: true
+  passenger_ruby: "/usr/bin/tfm-ruby"
+  passenger_ruby_package: tfm-rubygem-passenger-native
+  ssl: true
   custom_repo: true
   configure_epel_repo: false
   configure_scl_repo: false
-  ssl: true
-  server_ssl_cert: "/etc/pki/katello/certs/katello-apache.crt"
-  server_ssl_key: "/etc/pki/katello/private/katello-apache.key"
   server_ssl_ca: "/etc/pki/katello/certs/katello-default-ca.crt"
   server_ssl_chain: "/etc/pki/katello/certs/katello-server-ca.crt"
+  server_ssl_cert: "/etc/pki/katello/certs/katello-apache.crt"
+  server_ssl_key: "/etc/pki/katello/private/katello-apache.key"
   server_ssl_crl: ''
+  client_ssl_ca: "/etc/foreman/proxy_ca.pem"
   client_ssl_cert: "/etc/foreman/client_cert.pem"
   client_ssl_key: "/etc/foreman/client_key.pem"
-  client_ssl_ca: "/etc/foreman/proxy_ca.pem"
-  websockets_encrypt: true
-  websockets_ssl_key: "/etc/pki/katello/private/katello-apache.key"
-  websockets_ssl_cert: "/etc/pki/katello/certs/katello-apache.crt"
-  passenger_ruby: "/usr/bin/tfm-ruby"
-  passenger_ruby_package: tfm-rubygem-passenger-native
   keepalive: true
   max_keepalive_requests: 10000
   admin_username: "{{ satellite_deployment_admin_username }}"
   admin_password: "{{ satellite_deployment_admin_password }}"
   initial_organization: "{{ satellite_deployment_organization }}"
   initial_location: "{{ satellite_deployment_location }}"
-  ipa_authentication: "{{ satellite_deployment_ipa_authentication }}"
-
+  ipa_authentication: "{{ satellite_ipa_integrated }}"
+  websockets_encrypt: true
+  websockets_ssl_key: "/etc/pki/katello/private/katello-apache.key"
+  websockets_ssl_cert: "/etc/pki/katello/certs/katello-apache.crt"
 foreman::cli: true
-
 foreman::plugin::ansible: true
-foreman::plugin::tasks: true
-foreman::plugin::templates: true
-foreman::plugin::remote_execution: true
-foreman::plugin::openscap: true
-foreman::plugin::hooks: true
-foreman::plugin::discovery: true
 foreman::plugin::bootdisk: false
+foreman::plugin::discovery: true
 foreman::plugin::docker: true
-
+foreman::plugin::hooks: true
+foreman::plugin::openscap: true
+foreman::plugin::remote_execution: true
+foreman::plugin::tasks: true
 foreman_proxy:
-  dhcp: true
   custom_repo: true
   http: false
   ssl_port: '9090'
-  templates: false
   ssl_ca: "/etc/foreman-proxy/ssl_ca.pem"
   ssl_cert: "/etc/foreman-proxy/ssl_cert.pem"
   ssl_key: "/etc/foreman-proxy/ssl_key.pem"
   foreman_ssl_ca: "/etc/foreman-proxy/foreman_ssl_ca.pem"
   foreman_ssl_cert: "/etc/foreman-proxy/foreman_ssl_cert.pem"
   foreman_ssl_key: "/etc/foreman-proxy/foreman_ssl_key.pem"
-
-  tftp: true
-  tftp_servername: "{{ satellite_deployment_ip_address }}"
-  dhcp: true
+  templates: false
+  tftp: "{{ satellite_deployment_tftp }}"
+  tftp_servername: "{{ satellite_deployment_hostname_full }}"
+  dhcp: "{{ satellite_deployment_dhcp }}"
   dhcp_option_domain:
-    - "{{ satellite_deployment_dns_zone }}"
-  dhcp_interface: "{{ satellite_deployment_dhcp_interface }}"
+  - "{{ satellite_deployment_dhcp }}"
+  dhcp_interface: "{{ satellite_deployment_net_interface }}"
   dhcp_gateway: "{{ satellite_deployment_gw_address }}"
   dhcp_range: "{{ satellite_deployment_dhcp_start }} {{ satellite_deployment_dhcp_end }}"
-  dhcp_nameservers: "{{ satellite_deployment_ip_address }}"
-  dns: true
+  dns: "{{ satellite_deployment_dns }}"
+  dns_interface: "{{ satellite_deployment_dns_interface }}"
   dns_zone: "{{ satellite_deployment_dns_zone }}"
   dns_reverse: "{{ satellite_deployment_dns_reverse_zone }}"
-  dns_inteface: "{{ satellite_deployment_dns_interface }}"
   dns_forwarders:
-    - "{{ satellite_deployment_dns_forwarder }}"
-
-
+  - "{{ satellite_deployment_dns_forwarder }}"
+foreman_proxy::plugin::ansible: true
 foreman_proxy::plugin::dhcp::remote_isc: false
-foreman_proxy::plugin::remote_execution::ssh:
-  ssh_identity_dir: /var/lib/foreman-proxy/ssh
-foreman_proxy::plugin::openscap:
-  configure_openscap_repo: false
-foreman_proxy::plugin::pulp:
-  enabled: true
-  pulpnode_enabled: false
 foreman_proxy::plugin::discovery: true
 foreman_proxy_content:
   pulp_master: true
   templates: false
   qpid_router_broker_addr: localhost
   enable_deb: false
-foreman_proxy::plugin::ansible: true
-
+foreman_proxy::plugin::openscap:
+  configure_openscap_repo: false
+foreman_proxy::plugin::pulp:
+  enabled: true
+  pulpnode_enabled: false
+foreman_proxy::plugin::remote_execution::ssh:
+  ssh_identity_dir: /var/lib/foreman-proxy/ssh
 puppet:
   server: true
+  server_passenger_min_instances: 1
   server_environments_owner: apache
+  server_foreman_ssl_ca: "/etc/pki/katello/puppet/puppet_client_ca.crt"
   server_foreman_ssl_cert: "/etc/pki/katello/puppet/puppet_client.crt"
   server_foreman_ssl_key: "/etc/pki/katello/puppet/puppet_client.key"
-  server_foreman_ssl_ca: "/etc/pki/katello/puppet/puppet_client_ca.crt"
-  server_passenger_min_instances: 1
 
 foreman::compute::ec2: false
 foreman::compute::gce: false
