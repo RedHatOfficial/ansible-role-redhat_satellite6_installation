@@ -59,6 +59,8 @@ set all mandatory variables for role.:
 
 You can see example of playbook in playbook_example/config.yml
 
+* cd playbook_example
+* ansible-playbook -i hosts.target -e '{satellite_deployment_vars: ./vars/main.yml}' config.yml
 * Run the playbook, see README of example playbook
 
 [playbook readme](./playbook_example/README.rst)
