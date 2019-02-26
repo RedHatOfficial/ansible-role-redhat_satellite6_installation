@@ -1,43 +1,40 @@
 ---
-# defaults file for juliovp01.ansible_satellite6
-# Go over variables bellow and pass them in extra vars, playbook vars,
+# defaults file 
+# Go over variables below and pass them in extra vars, playbook vars,
 # vars_files, inventory file or whatever which overwrite these values!
 
 
 # main:
 # version should be double! Not string!
-satellite_deployment_version: 6.2
-satellite_deployment_hostname_short: "sat"
-satellite_deployment_hostname_full: "define.your.fqdn"
-satellite_deployment_ip_address: "127.0.0.1"
-
-# install:
-satellite_deployment_plugin_packages: []
-
-# network:
-satellite_deployment_set_network: false
-satellite_deployment_net_prefix: "24"
-satellite_deployment_subnet_name: "sat_subnet1"
-satellite_deployment_plugin_ports: []
-
+satellite_deployment_version: 6.4
+satellite_deployment_hostname_short: "sat-testing"
+satellite_deployment_hostname_full: "sat-testing.example.com"
+satellite_deployment_admin_username: "admin"
+satellite_deployment_admin_password: "redhat"
+satellite_deployment_organization: "ORG1"
+satellite_deployment_location: "LOC1"
 # registration:
+satellite_connected: "True"  ## True for connected / False for Disconnected
 satellite_deployment_rhn_user: "your_rhn_user"
 satellite_deployment_rhn_password: "your_rhn_pass"
 
 # answers:
 # specify answers key: value without -- prefix. Keys you can get when you
 # use satellite-installer with --help | less for easier finding
+#satellite_deployment_answers:
+#  'answer': 'value'
+
 satellite_deployment_answers:
-  'answer': 'value'
-
-
-satellite_deployment_ipa_authentication: "false"
+  "foreman-initial-organization": "{{ satellite_deployment_organization }}"
+  "foreman-initial-location": "{{ satellite_deployment_location }}"
+  "foreman-admin-username": "{{ satellite_deployment_admin_username }}"
+  "foreman-admin-password": "{{ satellite_deployment_admin_password }}"
 
 # configure_satellite:
-satellite_deployment_remote_manifest: false
-satellite_deployment_manifest_path: "satellite_manifest.zip"
+satellite_deployment_manifest_path: "/home/ansible-root/NP/satellite_manifest.zip"
 satellite_deployment_manifest_dest_path: "/root/satellite_manifest.zip"
 satellite_deployment_repositories:
+  - { product_name: 'Red Hat Enterprise Linux Server', name_repo: 'Red Hat Enterprise Linux 7 Server (Kickstart)', rel: '7.6', architecture: 'x86_64', state: enable}
   - { product_name: 'Red Hat Enterprise Linux Server', name_repo: 'Red Hat Enterprise Linux 7 Server (Kickstart)', rel: '7Server', architecture: 'x86_64', state: enable}
   - { product_name: 'Red Hat Enterprise Linux Server', name_repo: 'Red Hat Enterprise Linux 7 Server (RPMs)', rel: '7Server', architecture: 'x86_64', state: enable}
   - { product_name: 'Red Hat Enterprise Linux Server', name_repo: 'Red Hat Enterprise Linux 7 Server - RH Common (RPMs)', rel: '7Server', architecture: 'x86_64', state: enable}
@@ -48,6 +45,18 @@ satellite_deployment_repositories:
 
 # configure_capsules:
 satellite_deployment_puppet_env: "production"
+
+
+satellite_deployment_packages:
+  "6.1":
+    - "katello"
+  "6.2":
+    - "satellite"
+  "6.3":
+    - "satellite"
+  "6.4":
+    - "satellite"
+    - "satellite-capsule"
 
 satellite_deployment_install_repos:
   "6.3":
@@ -91,3 +100,37 @@ satellite_deployment_fw_ports:
 
 satellite_deployment_installer_cmd: "/usr/sbin/satellite-installer
   --scenario satellite"
+
+
+# IPA Enabled / Disabled
+satellite_ipa_integrated: "false"
+
+
+# network
+satellite_deployment_ip_address: "192.168.0.130"
+satellite_deployment_network_address: "192.168.0.130"
+satellite_deployment_net_prefix: "24"
+satellite_deployment_gw_address: "192.168.0.1"
+satellite_deployment_net_interface: "ens192"
+satellite_deployment_subnet_name: "sat_subnet1"
+satellite_deployment_plugin_ports: []
+
+
+#DNS
+satellite_deployment_dns: "false"
+satellite_deployment_dns_interface: "{{ satellite_deployment_net_interface }}"
+satellite_deployment_dns_forwarder: "[]"
+satellite_deployment_dns_zone: "example.com"
+satellite_deployment_dns_reverse_zone: "0.168.192.in-addr.arpa"
+
+#DHCP
+satellite_deployment_dhcp: "false"
+satellite_deployment_dhcp_interface: "{{ satellite_deployment_net_interface }}"
+satellite_deployment_dhcp_start: "192.168.0.135"
+satellite_deployment_dhcp_end: "192.168.0.139"
+
+#TFTP
+satellite_deployment_tftp: "true"
+
+satellite_deployment_plugin_packages:
+  - "foreman-discovery-image"

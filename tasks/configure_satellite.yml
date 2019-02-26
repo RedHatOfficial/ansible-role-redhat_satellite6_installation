@@ -18,14 +18,14 @@
   copy:
     src: "{{ satellite_deployment_manifest_path }}"
     dest: "{{ satellite_deployment_manifest_dest_path }}"
-  when: "{{ not satellite_deployment_remote_manifest }}"
+  when: not satellite_deployment_remote_manifest
 
 - name: "Configure | copy manifest from remote"
   become: "yes"
   get_url:
     url: "{{ satellite_deployment_manifest_path }}"
     dest: "{{ satellite_deployment_manifest_dest_path }}"
-  when: "{{ satellite_deployment_remote_manifest }}"
+  when: satellite_deployment_remote_manifest
 
 #Upload the manifest to the satellite
 - name: "Configure | upload the manifest"

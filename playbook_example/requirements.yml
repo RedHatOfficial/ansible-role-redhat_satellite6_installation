@@ -1,7 +1,0 @@
----
-- src: bennojoy.ntp
-  name: ntp
-- src: https://github.com/petr-balogh/satellite-deployment.git
-  # version is draft for testing before we push changes to master
-  version: draft
-  name: satellite-deployment
