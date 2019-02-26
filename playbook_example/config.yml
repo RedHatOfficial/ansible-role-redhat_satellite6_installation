@@ -1,6 +1,10 @@
 ---
 - hosts: satellite-server
-  roles:
-    - role: "satellite-deployment"
+  become: True
+  tasks:
+    - name: import_role for ansible-role-redhat_satellite6_installation 
+      import_role: 
+        name: ../../ansible-role-redhat_satellite6_installation
+
   vars_files:
     - "{{ satellite_deployment_vars }}"
