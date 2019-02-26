@@ -6,35 +6,32 @@
 
 # main:
 # version should be double! Not string!
-satellite_deployment_version: 6.3
-satellite_deployment_hostname_short: "sat"
-satellite_deployment_hostname_full: "define.your.fqdn"
-satellite_deployment_ip_address: "127.0.0.1"
-
-# install:
-satellite_deployment_plugin_packages: []
-
-# network:
-satellite_deployment_set_network: false
-satellite_deployment_net_prefix: "24"
-satellite_deployment_subnet_name: "sat_subnet1"
-satellite_deployment_plugin_ports: []
+satellite_deployment_version: 6.4
+satellite_deployment_hostname_short: "sat-testing"
+satellite_deployment_hostname_full: "sat-testing.mgt.devsecops.gov"
 
 # registration:
-satellite_connected: "false"  ## True for connected / False for Disconnected
+satellite_connected: "True"  ## True for connected / False for Disconnected
 satellite_deployment_rhn_user: "your_rhn_user"
 satellite_deployment_rhn_password: "your_rhn_pass"
 
 # answers:
 # specify answers key: value without -- prefix. Keys you can get when you
 # use satellite-installer with --help | less for easier finding
+#satellite_deployment_answers:
+#  'answer': 'value'
+
 satellite_deployment_answers:
-  'answer': 'value'
+  "foreman-initial-organization": "{{ satellite_deployment_organization }}"
+  "foreman-initial-location": "{{ satellite_deployment_location }}"
+  "foreman-admin-username": "{{ satellite_deployment_admin_username }}"
+  "foreman-admin-password": "{{ satellite_deployment_admin_password }}"
 
 # configure_satellite:
-satellite_deployment_manifest_path: "satellite_manifest.zip"
+satellite_deployment_manifest_path: "/home/ansible-root/NP/satellite_manifest.zip"
 satellite_deployment_manifest_dest_path: "/root/satellite_manifest.zip"
 satellite_deployment_repositories:
+  - { product_name: 'Red Hat Enterprise Linux Server', name_repo: 'Red Hat Enterprise Linux 7 Server (Kickstart)', rel: '7.6', architecture: 'x86_64', state: enable}
   - { product_name: 'Red Hat Enterprise Linux Server', name_repo: 'Red Hat Enterprise Linux 7 Server (Kickstart)', rel: '7Server', architecture: 'x86_64', state: enable}
   - { product_name: 'Red Hat Enterprise Linux Server', name_repo: 'Red Hat Enterprise Linux 7 Server (RPMs)', rel: '7Server', architecture: 'x86_64', state: enable}
   - { product_name: 'Red Hat Enterprise Linux Server', name_repo: 'Red Hat Enterprise Linux 7 Server - RH Common (RPMs)', rel: '7Server', architecture: 'x86_64', state: enable}
@@ -45,6 +42,7 @@ satellite_deployment_repositories:
 
 # configure_capsules:
 satellite_deployment_puppet_env: "production"
+
 
 satellite_deployment_packages:
   "6.1":
@@ -99,3 +97,56 @@ satellite_deployment_fw_ports:
 
 satellite_deployment_installer_cmd: "/usr/sbin/satellite-installer
   --scenario satellite"
+
+
+# IPA Enabled / Disabled
+satellite_ipa_integrated: "false"
+
+
+# network
+satellite_deployment_ip_address: "192.168.0.130"
+satellite_deployment_network_address: "192.168.0.130"
+satellite_deployment_net_prefix: "24"
+satellite_deployment_gw_address: "192.168.0.1"
+satellite_deployment_net_interface: "ens192"
+satellite_deployment_subnet_name: "sat_subnet1"
+satellite_deployment_plugin_ports: []
+
+
+#DNS
+satellite_deployment_dns: "false"
+satellite_deployment_dns_interface: "{{ satellite_deployment_net_interface }}"
+satellite_deployment_dns_forwarder: "[]"
+satellite_deployment_dns_zone: "mgt.devsecops.gov"
+satellite_deployment_dns_reverse_zone: "0.168.192.in-addr.arpa"
+
+#DHCP
+satellite_deployment_dhcp: "false"
+satellite_deployment_dhcp_interface: "{{ satellite_deployment_net_interface }}"
+satellite_deployment_dhcp_start: "192.168.0.135"
+satellite_deployment_dhcp_end: "192.168.0.139"
+
+#TFTP
+satellite_deployment_tftp: "true"
+
+
+#"foreman-proxy-dns": "true"
+#"foreman-proxy-dns-interface": "{{ satellite_deployment_dns_interface }}"
+#"foreman-proxy-dns-zone": "{{ satellite_deployment_dns_zone }}"
+#"foreman-proxy-dns-forwarders": "{{ satellite_deployment_dns_forwarder }}"
+#"foreman-proxy-dns-reverse": "{{ satellite_deployment_dns_reverse_zone }}"
+
+#"foreman-proxy-dhcp": "true"
+#"foreman-proxy-dhcp-interface": "{{ satellite_deployment_dhcp_interface }}"
+#"foreman-proxy-dhcp-range": "{{ satellite_deployment_dhcp_start }}
+#{{ satellite_deployment_dhcp_end }}"
+#"foreman-proxy-dhcp-gateway": "{{ satellite_deployment_gw_address }}"
+#"foreman-proxy-dhcp-nameservers": "{{ satellite_deployment_ip_address }}"
+
+#"foreman-proxy-tftp": "true"
+#"foreman-proxy-tftp-servername": "{{ satellite_deployment_hostname_full }}"
+#"foreman-proxy-puppetca": "true"
+#"capsule-puppet": "true"
+
+satellite_deployment_plugin_packages:
+  - "foreman-discovery-image"
