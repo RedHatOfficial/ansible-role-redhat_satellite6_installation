@@ -63,7 +63,7 @@ You can see example of playbook in playbook_example/config.yml
 * ansible-playbook -i hosts.target -e '{satellite_deployment_vars: ./vars/main.yml}' config.yml
 * Run the playbook, see README of example playbook
 
-[playbook readme](./playbook_example/README.rst)
+[playbook readme](./playbook_example/README.md)
 
 
 License
