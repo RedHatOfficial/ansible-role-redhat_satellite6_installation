@@ -6,3 +6,4 @@
 - include: install_software.yml
 - include: install_satellite.yml
 - include: configure_satellite.yml
+- include: satellite_post_config.yml
