@@ -1,14 +1,13 @@
 ---
 # TASKS
-
 - name: Change "Delete Host upon unregister" from no to yes
+  become: yes
   shell: >
-   hammer settings set --name "unregister_delete_host" --value "True"
-  register: unregister_output
-  failed_when: (unregister_output != 0)
+   hammer settings set --name "unregister_delete_host" --value "true"
+  failed_when: false
 
 - name: Change "Installable errata from Content View" from no to yes
   shell: >
-   hammer settings set --name "errata_status_installable" --value "True"
-  register: errata_output
-  failed_when: (errata_output != 0)
+   hammer settings set --name "errata_status_installable" --value "true"
+  failed_when: false
+
