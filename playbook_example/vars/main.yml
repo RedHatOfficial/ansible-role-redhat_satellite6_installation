@@ -6,4 +6,4 @@
 satellite_deployment_rhn_user: "rhsm-user"
 satellite_deployment_rhn_password: 'redhat'
 
-#satellite_deployment_manifest_path: "/home/ansible-root/NP/satellite_manifest.zip"
+#satellite_deployment_manifest_path: "satellite_manifest.zip"
