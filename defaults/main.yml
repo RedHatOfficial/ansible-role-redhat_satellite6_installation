@@ -5,8 +5,8 @@
 
 
 # main:
-# version should be double! Not string!
-satellite_deployment_version: 6.4
+# version should be double, not string!
+satellite_deployment_version: 6.5
 satellite_deployment_hostname_short: "sat-testing"
 satellite_deployment_hostname_full: "sat-testing.example.com"
 satellite_deployment_admin_username: "admin"
@@ -57,6 +57,9 @@ satellite_deployment_packages:
   "6.4":
     - "satellite"
     - "satellite-capsule"
+  "6.5":
+    - "satellite"
+    - "satellite-capsule"
 
 satellite_deployment_install_repos:
   "6.3":
@@ -67,6 +70,13 @@ satellite_deployment_install_repos:
     - "rhel-7-server-rpms"
     - "rhel-server-rhscl-7-rpms"
     - "rhel-7-server-satellite-6.4-rpms"
+    - "rhel-7-server-satellite-maintenance-6-rpms"
+    - "rhel-7-server-ansible-2.6-rpms"
+    - "rhel-7-server-rh-common-rpms"
+  "6.5":
+    - "rhel-7-server-rpms"
+    - "rhel-server-rhscl-7-rpms"
+    - "rhel-7-server-satellite-6.5-rpms"
     - "rhel-7-server-satellite-maintenance-6-rpms"
     - "rhel-7-server-ansible-2.6-rpms"
     - "rhel-7-server-rh-common-rpms"
