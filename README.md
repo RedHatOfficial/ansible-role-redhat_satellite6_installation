@@ -41,14 +41,13 @@ How to run the playbook
 * To run the playbook first you need to create and download the manifest:
 
 Go to <http://rhn.redhat.com>.
-- Click "Satellite"
-- Click "Register a Satellite"
-- Set a Name, select a version and Click "Register"
+- Click "Subscription Allocations"
+- Click "New Subscriptoin Allocation"
+- Set a Name, select a Satellite version next to **Type** and click "Create"
 After this we are going to  attach a subscription.
-- Click "Attach Subscription" and select the subscription to attach and click
-"Attach Selected"
+- Click "Subscriptions" and "Attach Subscription" and select the subscription to attach and click "Attach Selected"
 After this we will download the manifest.
-- Click "Download manifest"
+- Click "Details" and "Export manifest"
 After this copy the download file inside the /files directory on the role and
 name it "satellite_manifest.zip"
 
