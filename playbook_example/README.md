@@ -1,24 +1,24 @@
-#Satellite deployment
+# Satellite deployment
 
-This playbook install all dependencies required by satellite, register RHN (if satellite_connected == true),
+This playbook install all dependencies required by satellite, register RHN (*if satellite_connected == true*),
 install satellite, and create some basic configuration of satellite.
 
-##Configuration
+## Configuration
 
 You have to specify a lot of variables for satellite-deployment role.
 This playbook assumes that you set all these variables in some variable file
 and its path you have to pass as parameter: ``satellite-deployment-vars``
 
-##Parameters
+## Parameters
 
-- **satellite-deployment-vars**
+- ``satellite-deployment-vars``
     This parameter should contains path to variable file which will describe
     all related variables for your Satellite server.
     For example: ./vars/brq-sat-instance.yml which is relative path from
     playbook.
     You can see examples in [example-vars.yml](./vars/example-vars.yml)
 
-##Execution
+## Execution
 
 - For execute playbook with whole process of deployment run:
   ``ansible-playbook -u root -i host.target -e
@@ -31,12 +31,12 @@ and its path you have to pass as parameter: ``satellite-deployment-vars``
   --tags=update_satellite ./config.yml``
 
 you can also exclude some tags with ``--skip-tags`` parameter of
-ansible-playbook command.
+``ansible-playbook`` command.
 
-##Tags
+## Tags
 
-- **firewall**: set firewall
-- **install_satellite**: install satellite
-- **update_satellite**: update satellite
-- **satellite_deployment_repositories**: deploy repositories
-- **rhn**: register rhn
+- ``firewall``: set firewall
+- ``install_satellite``: install satellite
+- ``update_satellite``: update satellite
+- ``satellite_deployment_repositories``: deploy repositories
+- ``rhn``: register rhn
