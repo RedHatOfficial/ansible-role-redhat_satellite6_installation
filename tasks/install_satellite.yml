@@ -48,7 +48,8 @@
 # Check if service exist for foreman
 - name: "Install and configure | check if service exist"
   stat:
-    path: "/etc/init.d/foreman"
+    #path: "/etc/init.d/foreman"
+    path: "/usr/lib/systemd/system/foreman.service"
   register: "foreman_service_file"
   become: "yes"
   tags:
