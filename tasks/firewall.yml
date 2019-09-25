@@ -34,6 +34,19 @@
   tags:
     - "firewall"
 
+#Opening firewall services
+- name: "Firewall and hostname | Opening Firewalld services"
+  become: "yes"
+  firewalld:
+    permanent: "yes"
+    immediate: "yes"
+    service: "{{ item }}"
+    state: "enabled"
+  with_items: "{{ satellite_deployment_fw_services }}"
+  ignore_errors: "yes"
+  tags:
+    - "firewall"
+
 #Opening firewall ports
 - name: "Firewall and hostname | Opening Firewalld ports"
   become: "yes"
