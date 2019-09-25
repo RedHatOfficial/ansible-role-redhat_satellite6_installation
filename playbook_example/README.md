@@ -1,15 +1,15 @@
-#Satellite deployment
+# Satellite deployment
 
 This playbook install all dependencies required by satellite, register RHN (if satellite_connected == true),
 install satellite, and create some basic configuration of satellite.
 
-##Configuration
+## Configuration
 
 You have to specify a lot of variables for satellite-deployment role.
 This playbook assumes that you set all these variables in some variable file
 and its path you have to pass as parameter: ``satellite-deployment-vars``
 
-##Parameters
+## Parameters
 
 - **satellite-deployment-vars**
     This parameter should contains path to variable file which will describe
@@ -18,7 +18,7 @@ and its path you have to pass as parameter: ``satellite-deployment-vars``
     playbook.
     You can see examples in [example-vars.yml](./vars/example-vars.yml)
 
-##Execution
+## Execution
 
 - For execute playbook with whole process of deployment run:
   ``ansible-playbook -u root -i host.target -e
@@ -33,7 +33,7 @@ and its path you have to pass as parameter: ``satellite-deployment-vars``
 you can also exclude some tags with ``--skip-tags`` parameter of
 ansible-playbook command.
 
-##Tags
+## Tags
 
 - **firewall**: set firewall
 - **install_satellite**: install satellite
