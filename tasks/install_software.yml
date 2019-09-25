@@ -1,15 +1,20 @@
 ---
 
 #Install the base software
-- name: "Install_software"
-  become: "yes"
-  yum:
-    name: "{{ item }}"
-    state: "latest"
-  with_items: "{{
+- name: "Debug"
+  debug:
+    msg: "{{
     satellite_deployment_packages[satellite_deployment_version | string] +
     satellite_deployment_extra_packages + satellite_deployment_plugin_packages
     }}"
+- name: "Install_software"
+  become: "yes"
+  yum:
+    name: "{{
+    satellite_deployment_packages[satellite_deployment_version | string] +
+    satellite_deployment_extra_packages + satellite_deployment_plugin_packages
+    }}"
+    state: "latest"
   tags:
     - "install"
     - "update_satellite"
