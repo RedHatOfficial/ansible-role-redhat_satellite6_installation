@@ -5,8 +5,8 @@
 
 
 # main:
-# version should be double, not string!
-satellite_deployment_version: 6.5
+# version should be double! Not string!
+satellite_deployment_version: 6.4
 satellite_deployment_hostname_short: "sat-testing"
 satellite_deployment_hostname_full: "sat-testing.example.com"
 satellite_deployment_admin_username: "admin"
@@ -90,22 +90,11 @@ satellite_deployment_extra_packages:
   - "screen"
   - "vim-*"
 
-# Firewall Ports
-satellite_deployment_fw_ports:
-    - 22/tcp
-    - 80/tcp
-    - 443/tcp
-    - 5646/tcp
-    - 5647/tcp
-    - 5671/tcp
-    - 5674/tcp
-    - 8140/tcp
-    - 9090/tcp
-    - 53/udp
-    - 53/tcp
-    - 67/udp
-    - 68/udp
-    - 69/udp
+# Firewall services and ports
+satellite_deployment_fw_ports: []
+satellite_deployment_fw_services:
+    - ssh
+    - RH-Satellite-6
 
 
 satellite_deployment_installer_cmd: "/usr/sbin/satellite-installer
