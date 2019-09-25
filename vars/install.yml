@@ -9,6 +9,9 @@ satellite_deployment_packages:
   "6.4":
     - "satellite"
     - "satellite-capsule"
+  "6.5":
+    - "satellite"
+    - "satellite-capsule"
 
 
 satellite_deployment_extra_packages:
