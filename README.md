@@ -42,7 +42,7 @@ How to run the playbook
    * Go to the [Subscriptions Allocations](https://access.redhat.com/management/subscription_allocations) section in the Red Hat Customer Portal.
    * Click the Create "New Subscription Allocation" button.
    * Name field: Enter the name for this allocation (using a reference to the Satellite host for later identification is recommended, for ex. organization-satellite-01).
-   * Type field: Select the Satellite 6.5 option 
+   * Type field: Select the Satellite version (this playbook supports from Satellite 6.1 to 6.4)
    * Click the "Create" button.
 2. Now we are going to attach a subscription.
    * Click the "Subscriptions" tab for the created allocation
