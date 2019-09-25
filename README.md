@@ -39,16 +39,20 @@ How to run the playbook
 ------------------------
 
 1. To run the playbook first you need to create and download the manifest:
-   * Go to <http://rhn.redhat.com>.
-   * Click "Satellite"
-   * Click "Register a Satellite"
-   * Set a Name, select a version and Click "Register"
-2. After this we are going to attach a subscription.
-   * Click "Attach Subscription" and select the subscription to attach and click "Attach Selected".
-3. After this we will download the manifest.
+   * Go to the [Subscriptions Allocations](https://access.redhat.com/management/subscription_allocations) section in the Red Hat Customer Portal.
+   * Click the Create "New Subscription Allocation" button.
+   * Name field: Enter the name for this allocation (using a reference to the Satellite host for later identification is recommended, for ex. organization-satellite-01).
+   * Type field: Select the Satellite 6.5 option 
+   * Click the "Create" button.
+2. Now we are going to attach a subscription.
+   * Click the "Subscriptions" tab for the created allocation
+   * Click the "Add Subscriptions" button.
+   * Select the subscriptions you want to add to this Satellite's manifest.
+   * Click the "Submit" button   
+3. After attaching the subscriptions to the allocation we have to download the manifest file:
    * Click "Download manifest"
-4. After this copy the download file inside the `/files` directory on the role and name it `satellite_manifest.zip`
-5. Then update the variable file in `defaults/main.yml` in your playbook and set all mandatory variables for role.
+4. Copy the downloaded file inside the `/files` directory on the role and name it `satellite_manifest.zip`
+5. Then update the variable file in `defaults/main.yml` in your playbook and set all mandatory variables for the role.
 
 You can see an [example of the playbook config here](./playbook_example/config.yml)
 
