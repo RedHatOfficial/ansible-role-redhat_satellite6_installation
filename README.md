@@ -16,7 +16,7 @@ You will need Ansible and all the required subscriptions for RHEL 7 Satellite 6.
   * [Satellite 6.2 - Storage Requirements and Recommendations](https://access.redhat.com/documentation/en-us/red_hat_satellite/6.2/html/installation_guide/preparing_your_environment_for_installation#hardware_storage_prerequisites)
 * DNS
 * NTP
-* satellite_deployment_manifest_path variable defined 
+* `satellite_deployment_manifest_path` variable defined 
 * Satellite Manifest file hosted in the Ansible Bastion or available via HTTP or FTP
 
 Role Variables
