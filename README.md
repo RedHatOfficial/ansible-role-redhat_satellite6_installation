@@ -66,7 +66,7 @@ Run the playbook, see [README of example playbook](./playbook_example/README.md)
 Notes
 -----------
 
-This role will take a while to run depending on the number of repositories to sync.
+This role will take some time to run depending on the number of repositories set to sync.
 
 
 License
