@@ -36,10 +36,20 @@
     - "update_satellite"
   when: satellite_deployment_version is version_compare('6.4')
 
+- name: "Install and configure | katello answer file copy"
+  template:
+    src: "answerfile.katello-installer_6.5.yaml.j2"
+    dest: "/etc/foreman-installer/scenarios.d/satellite-answers.yaml"
+  tags:
+    - "install_satellite"
+    - "update_satellite"
+  when: satellite_deployment_version is version_compare('6.5')
+
 # Check if service exist for foreman
 - name: "Install and configure | check if service exist"
   stat:
-    path: "/etc/init.d/foreman"
+    #path: "/etc/init.d/foreman"
+    path: "/usr/lib/systemd/system/foreman.service"
   register: "foreman_service_file"
   become: "yes"
   tags:
@@ -86,7 +96,7 @@
   - "install_satellite"
   - "update_satellite"
 
-#Run the install of Satellite 6.3 or 6.4
+#Run the install of Satellite equal or newer than 6.3
 - name: "Satellite installation"
   command: "{{ satellite_deployment_installer_cmd }}"
   become: "yes"

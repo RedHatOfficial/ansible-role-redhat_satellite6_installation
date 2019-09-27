@@ -31,7 +31,7 @@ satellite_deployment_answers:
   "foreman-admin-password": "{{ satellite_deployment_admin_password }}"
 
 # configure_satellite:
-satellite_deployment_manifest_path: "/home/ansible-root/NP/satellite_manifest.zip"
+satellite_deployment_manifest_path: "satellite_manifest.zip"
 satellite_deployment_manifest_dest_path: "/root/satellite_manifest.zip"
 satellite_deployment_repositories:
   - { product_name: 'Red Hat Enterprise Linux Server', name_repo: 'Red Hat Enterprise Linux 7 Server (Kickstart)', rel: '7.6', architecture: 'x86_64', state: enable}
@@ -57,6 +57,9 @@ satellite_deployment_packages:
   "6.4":
     - "satellite"
     - "satellite-capsule"
+  "6.5":
+    - "satellite"
+    - "satellite-capsule"
 
 satellite_deployment_install_repos:
   "6.3":
@@ -70,6 +73,13 @@ satellite_deployment_install_repos:
     - "rhel-7-server-satellite-maintenance-6-rpms"
     - "rhel-7-server-ansible-2.6-rpms"
     - "rhel-7-server-rh-common-rpms"
+  "6.5":
+    - "rhel-7-server-rpms"
+    - "rhel-server-rhscl-7-rpms"
+    - "rhel-7-server-satellite-6.5-rpms"
+    - "rhel-7-server-satellite-maintenance-6-rpms"
+    - "rhel-7-server-ansible-2.6-rpms"
+    - "rhel-7-server-rh-common-rpms"
 
 # Packages
 satellite_deployment_extra_packages:
@@ -80,22 +90,11 @@ satellite_deployment_extra_packages:
   - "screen"
   - "vim-*"
 
-# Firewall Ports
-satellite_deployment_fw_ports:
-    - 22/tcp
-    - 80/tcp
-    - 443/tcp
-    - 5646/tcp
-    - 5647/tcp
-    - 5671/tcp
-    - 5674/tcp
-    - 8140/tcp
-    - 9090/tcp
-    - 53/udp
-    - 53/tcp
-    - 67/udp
-    - 68/udp
-    - 69/udp
+# Firewall services and ports
+satellite_deployment_fw_ports: []
+satellite_deployment_fw_services:
+    - ssh
+    - RH-Satellite-6
 
 
 satellite_deployment_installer_cmd: "/usr/sbin/satellite-installer
