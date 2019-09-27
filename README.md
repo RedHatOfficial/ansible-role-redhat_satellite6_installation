@@ -1,12 +1,8 @@
-Ansible Satellite 6 Install
+Ansible role for Satellite 6 install
 ===========================
 
 Role to install and do basic configuration of Red Hat Satellite 6.x on Red Hat Enterprise Linux (RHEL) 7.x
 
-INFORMATION
------------
-
-This playbook will take a while to run depending on the number of repositories to sync.
 
 Requirements
 ------------
@@ -67,6 +63,11 @@ ansible-playbook -i hosts.target -e '{satellite_deployment_vars: ./vars/main.yml
 
 Run the playbook, see [README of example playbook](./playbook_example/README.md).
 
+Notes
+-----------
+
+This role will take a while to run depending on the number of repositories to sync.
+
 
 License
 -------
@@ -84,4 +85,4 @@ Julio Villarreal Pelegrino <julio@linux.com> more at: http://wwww.juliovillarrea
 * Joe Pisciotta - <josephpisciott@mac.com>
 * Nick Poyant - <npoyant@redhat.com>
 * Cameron Wyatt - <cwyatt@redhat.com>
-* Leonardo Gallego - <leogallego[@]redhat.com>
+* Leonardo Gallego - leogallego[@]redhat.com
