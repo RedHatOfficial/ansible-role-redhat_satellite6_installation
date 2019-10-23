@@ -6,7 +6,7 @@
 
 # main:
 # version should be double! Not string!
-satellite_deployment_version: 6.4
+satellite_deployment_version: 6.6
 satellite_deployment_hostname_short: "sat-testing"
 satellite_deployment_hostname_full: "sat-testing.example.com"
 satellite_deployment_admin_username: "admin"
