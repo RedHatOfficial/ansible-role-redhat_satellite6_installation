@@ -58,7 +58,7 @@
 - name: "Install and configure | check if service exist"
   stat:
     #path: "/etc/init.d/foreman"
-    path: "/usr/lib/systemd/system/foreman.service"
+    path: "/sbin/katello-service"
   register: "foreman_service_file"
   become: "yes"
   tags:
