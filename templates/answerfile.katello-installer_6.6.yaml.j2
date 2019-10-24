@@ -1,0 +1,99 @@
+---
+certs:
+  generate: true
+  deploy: true
+  group: foreman
+katello:
+  enable_ostree: true
+  enable_deb: false
+foreman:
+  initial_organization: "{{ satellite_deployment_organization }}"
+  initial_location: "{{ satellite_deployment_location }}"
+  admin_username: "{{ satellite_deployment_admin_username }}"
+  admin_password: "{{ satellite_deployment_admin_password }}"
+  ipa_authentication: "{{ satellite_ipa_integrated }}"
+  configure_epel_repo: false
+  configure_scl_repo: false
+  ssl: true
+  server_ssl_cert: /etc/pki/katello/certs/katello-apache.crt
+  server_ssl_key: /etc/pki/katello/private/katello-apache.key
+  server_ssl_ca: /etc/pki/katello/certs/katello-default-ca.crt
+  server_ssl_chain: /etc/pki/katello/certs/katello-server-ca.crt
+  server_ssl_crl: ''
+  client_ssl_cert: /etc/foreman/client_cert.pem
+  client_ssl_key: /etc/foreman/client_key.pem
+  client_ssl_ca: /etc/foreman/proxy_ca.pem
+  websockets_encrypt: true
+  websockets_ssl_key: /etc/pki/katello/private/katello-apache.key
+  websockets_ssl_cert: /etc/pki/katello/certs/katello-apache.crt
+  keepalive: true
+  max_keepalive_requests: 10000
+  user_groups: []
+foreman::cli: true
+foreman::cli::kubevirt: false
+foreman::plugin::ansible: true
+foreman::plugin::tasks:
+  automatic_cleanup: true
+  cron_line: 45 19 * * *
+foreman::plugin::templates: true
+foreman::plugin::remote_execution: true
+foreman::plugin::openscap: true
+foreman::plugin::kubevirt: false
+foreman::plugin::hooks: true
+foreman::plugin::discovery: true
+foreman::plugin::bootdisk: false
+foreman_proxy:
+  http: true
+  ssl_port: '9090'
+  templates: true
+  ssl_ca: /etc/foreman-proxy/ssl_ca.pem
+  ssl_cert: /etc/foreman-proxy/ssl_cert.pem
+  ssl_key: /etc/foreman-proxy/ssl_key.pem
+  foreman_ssl_ca: /etc/foreman-proxy/foreman_ssl_ca.pem
+  foreman_ssl_cert: /etc/foreman-proxy/foreman_ssl_cert.pem
+  foreman_ssl_key: /etc/foreman-proxy/foreman_ssl_key.pem
+  manage_puppet_group: false
+  tftp: "{{ satellite_deployment_tftp }}"
+  tftp_servername: "{{ satellite_deployment_hostname_full }}"
+  dhcp: "{{ satellite_deployment_dhcp }}"
+  dhcp_option_domain:
+  - "{{ satellite_deployment_dhcp }}"
+  dhcp_interface: "{{ satellite_deployment_net_interface }}"
+  dhcp_gateway: "{{ satellite_deployment_gw_address }}"
+  dhcp_range: "{{ satellite_deployment_dhcp_start }} {{ satellite_deployment_dhcp_end }}"
+  dns: "{{ satellite_deployment_dns }}"
+  dns_interface: "{{ satellite_deployment_dns_interface }}"
+  dns_zone: "{{ satellite_deployment_dns_zone }}"
+  dns_reverse: "{{ satellite_deployment_dns_reverse_zone }}"
+  dns_forwarders:
+  - "{{ satellite_deployment_dns_forwarder }}"
+foreman_proxy::plugin::dhcp::remote_isc: false
+foreman_proxy::plugin::remote_execution::ssh:
+  ssh_identity_dir: /var/lib/foreman-proxy/ssh
+foreman_proxy::plugin::openscap:
+  configure_openscap_repo: false
+foreman_proxy::plugin::pulp:
+  enabled: true
+  pulpnode_enabled: false
+foreman_proxy::plugin::discovery: true
+foreman_proxy_content:
+  pulp_master: true
+  templates: false
+  qpid_router_broker_addr: localhost
+  enable_deb: false
+foreman_proxy::plugin::ansible: true
+puppet:
+  server: true
+  server_environments_owner: apache
+  server_foreman_ssl_cert: /etc/pki/katello/puppet/puppet_client.crt
+  server_foreman_ssl_key: /etc/pki/katello/puppet/puppet_client.key
+  server_foreman_ssl_ca: /etc/pki/katello/puppet/puppet_client_ca.crt
+foreman::compute::ec2: false
+foreman::compute::gce: false
+foreman::compute::libvirt: false
+foreman::compute::openstack: false
+foreman::compute::ovirt: false
+foreman::compute::rackspace: false
+foreman::compute::vmware: false
+foreman_proxy::plugin::dns::infoblox: false
+foreman_proxy::plugin::dhcp::infoblox: false
