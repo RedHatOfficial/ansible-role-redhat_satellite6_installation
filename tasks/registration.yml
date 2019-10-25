@@ -49,7 +49,7 @@
     - "rhn"
     - "skip_ansible_lint" # ANSIBLE0012
   ignore_errors: "yes"
-  when: satellite_deployment_subscribed.stdout is undefined
+  when: not satellite_deployment_subscribed.stdout
 
 
 #Enabling the repos
