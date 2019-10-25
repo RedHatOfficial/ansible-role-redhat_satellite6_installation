@@ -41,8 +41,9 @@
   - "update_satellite"
 
 # load release-specific variables
-- name: "Load release-specific variables"
+- name: "Load release-specific variables (if any)"
   include_vars: "satellite_{{ satellite_deployment_version }}.yml"
+  ignore_errors: yes
 
 - name: "Update satellite-installer command"
   set_fact:
