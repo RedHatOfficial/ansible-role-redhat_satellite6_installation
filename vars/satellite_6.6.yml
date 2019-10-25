@@ -1,0 +1,11 @@
+---
+# Satellite 6.6 changed the foreman-installation parameters.
+# --foreman-admin-{username,password}
+# became:
+# --foreman-initial-admin-{username,password}
+
+satellite_deployment_answers:
+  "foreman-initial-organization": "{{ satellite_deployment_organization }}"
+  "foreman-initial-location": "{{ satellite_deployment_location }}"
+  "foreman-initial-admin-username": "{{ satellite_deployment_admin_username }}"
+  "foreman-initial-admin-password": "{{ satellite_deployment_admin_password }}"
