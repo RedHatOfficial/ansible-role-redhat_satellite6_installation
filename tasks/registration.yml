@@ -1,4 +1,10 @@
 ---
+# ensure that all other repositories are disabled
+- name: "Disable EPEL repository"
+  yum_repository:
+    name: epel
+    state: absent
+
 #Registering system with RHN.
 - name: "RHN | registering system with RHN"
   redhat_subscription:
@@ -43,7 +49,7 @@
     - "rhn"
     - "skip_ansible_lint" # ANSIBLE0012
   ignore_errors: "yes"
-  when: satellite_deployment_subscribed.stdout == ''
+  when: satellite_deployment_subscribed.stdout is undefined
 
 
 #Enabling the repos
