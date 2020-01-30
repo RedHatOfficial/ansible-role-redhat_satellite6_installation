@@ -18,14 +18,37 @@
   copy:
     src: "{{ satellite_deployment_manifest_path }}"
     dest: "{{ satellite_deployment_manifest_dest_path }}"
-  when: not satellite_deployment_remote_manifest
+  when: satellite_deployment_remote_manifest is undefined
+  #when: not satellite_deployment_remote_manifest
 
 - name: "Configure | copy manifest from remote"
   become: "yes"
   get_url:
     url: "{{ satellite_deployment_manifest_path }}"
     dest: "{{ satellite_deployment_manifest_dest_path }}"
-  when: satellite_deployment_remote_manifest
+  when: satellite_deployment_remote_manifest is not undefined
+
+#Fetch organization ID
+- name: "Check | fetch organization ID"
+  become: "yes"
+  shell: "hammer organization list | grep {{ satellite_deployment_organization }} | cut -d '|' -f 1"
+  register: id
+  ignore_errors: True
+
+#If fetching organization ID failed display the message
+- name: "Check | fetching of organization ID if failed"
+  command: /bin/echo "Unable to fetch Organization list."
+  when: id is failed
+
+#Type casting id to number
+- name: "Set fact for organization ID"
+  set_fact:
+    organization_id: "{{ id.stdout | int }}"
+  when: id is succeeded
+- name: "Check succeeded"
+  shell: "hammer subscription manifest-history --organization-id {{ organization_id }} | grep -i SUCCESS"
+  register: manifest_status
+  when: id is succeeded
 
 #Upload the manifest to the satellite
 - name: "Configure | upload the manifest"
@@ -33,6 +56,7 @@
   shell: "hammer subscription upload --file
     {{ satellite_deployment_manifest_dest_path }} --organization
     {{ satellite_deployment_organization }}"
+  when: manifest_status is not succeeded
 
 #Enabling repos on satellite
 - name: "Configure | enable repos"
