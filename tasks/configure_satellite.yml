@@ -65,7 +65,7 @@
     '{{ satellite_deployment_organization }}'
     --product '{{ item.product_name }}' --name '{{ item.name_repo }}'
     {% if item.rel is defined %} --releasever '{{ item.rel }}' {% endif %}
-    --basearch '{{ item.architecture}}'"
+    --basearch '{{ item.architecture }}'"
   with_items: "{{ satellite_deployment_repositories }}"
   ignore_errors: "yes"
   tags:
@@ -83,4 +83,4 @@
   with_items: "{{ repos.stdout_lines }}"
   register: "sync_repos_result"
   retries: 3
-  until: "{{ sync_repos_result | success }}"
+  until: sync_repos_result is success
