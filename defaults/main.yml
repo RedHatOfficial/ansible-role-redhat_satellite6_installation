@@ -37,6 +37,16 @@ satellite_deployment_repositories:
   - { product_name: 'Red Hat Enterprise Linux Server', name_repo: 'Red Hat Enterprise Linux 7 Server - Optional (RPMs)', rel: '7Server', architecture: 'x86_64', state: enable}
   - { product_name: 'Red Hat Enterprise Linux Server', name_repo: 'Red Hat Satellite Tools {{ satellite_deployment_version }} (for RHEL 7 Server) (RPMs)', architecture: 'x86_64', state: enable}
 
+satellite_settings:
+  - name: "default_download_policy"
+    value: "immediate"
+  - name: "unregister_delete_host"
+    value: "true"
+  - name: "errata_status_installable"
+    value: "true"
+  - name: "login_text"
+    value: "I've read & consent to terms in IS user agreement."
+
 # configure_capsules:
 satellite_deployment_puppet_env: "production"
 

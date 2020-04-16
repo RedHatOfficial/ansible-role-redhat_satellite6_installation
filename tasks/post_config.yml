@@ -1,0 +1,21 @@
+---
+# TASKS
+- name: Configuring Satellite 6 server | Common Settings
+  theforeman.foreman.foreman_setting:
+    username: "{{ satellite_deployment_admin_username }}"
+    password: "{{ satellite_deployment_admin_password }}"
+    server_url: "https://{{ ansible_fqdn }}"
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+  with_items:
+    - "{{ satellite_settings }}"
+
+- name: Configuring Satellite 6 server | Disconnected Settings
+  theforeman.foreman.foreman_setting:
+    username: "{{ satellite_deployment_admin_username }}"
+    password: "{{ satellite_deployment_admin_password }}"
+    server_url: "https://{{ ansible_fqdn }}"
+    name: "content_disconnected"
+    value: "true"
+  when: rhn_connect == 'disconnect'
+
